@@ -5,7 +5,6 @@ import com.rehic.global.MaritalStatus;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 public class MemberDto {
