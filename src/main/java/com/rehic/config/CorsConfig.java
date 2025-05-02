@@ -11,7 +11,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Changed path pattern to /** to match all paths
+        registry.addMapping("/**") //  path pattern to /** to match all paths
                 .allowedOrigins("http://localhost:3000") // Explicitly allow the frontend origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed HTTP methods
                 .allowedHeaders("*")   // Allow all headers
