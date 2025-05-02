@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,10 +17,42 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDtoSummary addMember(MemberDto memberDto) {
         // Check if email already exists
-        memberRepository.findByEmailAddress(memberDto.getEmailAddress()).ifPresent(m -> {
-            throw new IllegalArgumentException("Email address already exists: " + memberDto.getEmailAddress());
-        });
+        Optional<Member> existingMember = memberRepository.findByEmailAddress(memberDto.getEmailAddress());
 
+        if (existingMember.isPresent()) {
+            Member member = existingMember.get();
+
+            // If member exists but is soft deleted, reactivate it
+            if (member.getIsDeleted()) {
+                // Update the member with new information and set isDeleted to false
+                Member reactivatedMember = new Member.MemberBuilder(memberDto.getFirstName(), memberDto.getLastName(), memberDto.getEmailAddress())
+                        .id(member.getId()) // Preserve the original ID
+                        .dateOfBirth(memberDto.getDateOfBirth())
+                        .ministriesOfInterest(memberDto.getMinistriesOfInterest())
+                        .primaryPhone(memberDto.getPrimaryPhone())
+                        .residingAddress(memberDto.getResidingAddress())
+                        .maritalStatus(memberDto.getMaritalStatus())
+                        .attendanceStatus(memberDto.getAttendanceStatus())
+                        .gender(memberDto.getGender())
+                        .emergencyContact(memberDto.getEmergencyContact())
+                        .emergencyContactRelationship(memberDto.getEmergencyContactRelationship())
+                        .occupation(memberDto.getOccupation())
+                        .skills(memberDto.getSkills())
+                        .lastAttendance(memberDto.getLastAttendance())
+                        .joinDate(memberDto.getJoinDate())
+                        .baptized(memberDto.getBaptized())
+                        .isDeleted(false) // Reactivate the member
+                        .build();
+
+                Member save = memberRepository.save(reactivatedMember);
+                return new MemberDtoSummary(save);
+            } else {
+                // If member exists and is not deleted, throw exception
+                throw new IllegalArgumentException("Email address already exists: " + memberDto.getEmailAddress());
+            }
+        }
+
+        // If member doesn't exist, create a new one
         Member member = new Member.MemberBuilder(memberDto.getFirstName(), memberDto.getLastName(), memberDto.getEmailAddress())
                 .dateOfBirth(memberDto.getDateOfBirth())
                 .ministriesOfInterest(memberDto.getMinistriesOfInterest())
