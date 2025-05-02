@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/rehic")
+@RequestMapping("/api/v1/rehic")
 @AllArgsConstructor
 public class MemberController {
     private MemberService memberService;

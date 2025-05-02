@@ -27,13 +27,21 @@ public class MemberServiceImpl implements MemberService {
                 .residingAddress(memberDto.getResidingAddress())
                 .maritalStatus(memberDto.getMaritalStatus())
                 .attendanceStatus(memberDto.getAttendanceStatus())
-                .gender(memberDto.getGender()).build();
+                .gender(memberDto.getGender())
+                .emergencyContact(memberDto.getEmergencyContact())
+                .emergencyContactRelationship(memberDto.getEmergencyContactRelationship())
+                .occupation(memberDto.getOccupation())
+                .skills(memberDto.getSkills())
+                .lastAttendance(memberDto.getLastAttendance())
+                .joinDate(memberDto.getJoinDate())
+                .baptized(memberDto.getBaptized())
+                .build();
         Member save = memberRepository.save(member);
         return new MemberDtoSummary(save);
     }
 
     @Override
-    public MemberDto getMember(String id) { // Changed UUID to String
+    public MemberDto getMember(String id) { 
         Member member = memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Member not found with id: " + id)); // Changed parameter type
         if (member.getIsDeleted()) {
             throw new NoSuchElementException("Member not found with id: " + id); // Treat deleted as not found
@@ -63,6 +71,13 @@ public class MemberServiceImpl implements MemberService {
                 .residingAddress(member.getResidingAddress())
                 .ministriesOfInterest(member.getMinistriesOfInterest())
                 .attendanceStatus(member.getAttendanceStatus())
+                .emergencyContact(member.getEmergencyContact())
+                .emergencyContactRelationship(member.getEmergencyContactRelationship())
+                .occupation(member.getOccupation())
+                .skills(member.getSkills())
+                .lastAttendance(member.getLastAttendance())
+                .joinDate(member.getJoinDate())
+                .baptized(member.getBaptized())
                 .isDeleted(true) // Set isDeleted to true
                 .build();
 
@@ -99,6 +114,13 @@ public class MemberServiceImpl implements MemberService {
                 .maritalStatus(dto.getMaritalStatus())
                 .attendanceStatus(dto.getAttendanceStatus())
                 .gender(dto.getGender())
+                .emergencyContact(dto.getEmergencyContact())
+                .emergencyContactRelationship(dto.getEmergencyContactRelationship())
+                .occupation(dto.getOccupation())
+                .skills(dto.getSkills())
+                .lastAttendance(dto.getLastAttendance())
+                .joinDate(dto.getJoinDate())
+                .baptized(dto.getBaptized())
                 .isDeleted(existingMember.getIsDeleted()) // Preserve existing isDeleted status
                 .build();
 

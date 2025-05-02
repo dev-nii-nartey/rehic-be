@@ -21,8 +21,8 @@ public class MemberDtoSummary {
         this.lastName = member.getLastName();
         this.primaryPhone = member.getPrimaryPhone();
         this.emailAddress = member.getEmailAddress();
-        this.joinDate = LocalDate.now(); //TODO: change to members joined date
+        this.joinDate = member.getJoinDate();
         this.attendanceStatus = member.getAttendanceStatus();
-        this.lastAttendance = LocalDate.now(); //TODO: Change this to the most recent date member visited church
+        this.lastAttendance = member.getLastAttendance();
     }
 }
