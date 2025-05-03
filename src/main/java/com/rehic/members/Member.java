@@ -2,6 +2,7 @@ package com.rehic.members;
 
 import com.rehic.global.Gender;
 import com.rehic.global.MaritalStatus;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,16 +19,21 @@ import java.util.List;
 public class Member {
     @Id
     private String id;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @NotBlank
     private String emailAddress;
     private LocalDate dateOfBirth;
     private Gender gender;
     private MaritalStatus maritalStatus;
+    @NotBlank
     private String primaryPhone;
     private String emergencyContact;
     private String emergencyContactRelationship;
     private String occupation;
+    @NotBlank
     private String residingAddress;
     private List<String> ministriesOfInterest;
     private List<String> skills;

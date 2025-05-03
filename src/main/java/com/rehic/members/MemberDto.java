@@ -2,6 +2,7 @@ package com.rehic.members;
 
 import com.rehic.global.Gender;
 import com.rehic.global.MaritalStatus;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,16 +15,21 @@ import java.util.List;
 @NoArgsConstructor
 public class MemberDto {
     private String recordId;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
     private LocalDate dateOfBirth;
     private Gender gender;
     private MaritalStatus maritalStatus;
+    @NotBlank
     private String residingAddress;
+    @NotBlank
     private String primaryPhone;
     private AttendanceStatus attendanceStatus;
     private List<String> ministriesOfInterest;
     private boolean isDeleted;
+    @NotBlank
     private String emailAddress;
     private String emergencyContact;
     private String emergencyContactRelationship;

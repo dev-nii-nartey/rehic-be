@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/v1/rehic")
+@RequestMapping("/api/v1/rehic/member")
 @AllArgsConstructor
 public class MemberController {
     private MemberService memberService;
 
-    @PostMapping("/member")
+    @PostMapping
     public MemberDtoSummary createMember(@RequestBody MemberDto memberDto) {
         return memberService.addMember(memberDto);
     }
@@ -23,7 +23,7 @@ public class MemberController {
     }
 
 
-    @GetMapping("/members")
+    @GetMapping("/all")
     public Page<MemberDtoSummary> getAllMember(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
