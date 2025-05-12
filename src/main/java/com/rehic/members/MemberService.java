@@ -3,7 +3,6 @@ package com.rehic.members;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-
 public interface MemberService {
     MemberDtoSummary addMember(MemberDto memberDto);
 

@@ -38,6 +38,7 @@ public class MemberController {
 
     @PutMapping
     public MemberDto updateMember( @RequestBody MemberDto dto) {
+        System.out.println("id :"+dto.getRecordId());
         return memberService.updateMember(dto.getRecordId(), dto);
     }
 
